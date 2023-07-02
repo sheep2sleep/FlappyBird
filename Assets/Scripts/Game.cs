@@ -38,6 +38,8 @@ public class Game : MonoBehaviour
     }   
 
     public PipelineManager pipelineManager;
+    public UnitManager unitManager;
+
     public Animator groundAmi;
 
     private void Awake()
@@ -74,6 +76,7 @@ public class Game : MonoBehaviour
         //Debug.LogFormat("Status: {0}", Status);
 
         pipelineManager.StartRun();
+        unitManager.Begin();
         player.Fly();
 
         groundAmi.speed = 1;
@@ -96,6 +99,7 @@ public class Game : MonoBehaviour
     {
         Status = GAME_STATUS.GameOver;
         pipelineManager.Stop();
+        unitManager.Stop();
         UpdateScore();
         groundAmi.speed = 0;
     }
