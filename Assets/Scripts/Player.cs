@@ -7,7 +7,9 @@ public class Player : MonoBehaviour
 {
     public Rigidbody2D rigidbodyBird;
     public Animator ani;
-    public float force;
+    public float speed;
+    public float fireRate;
+    public GameObject bulletTemplate;
 
     private Vector3 initPosion;
     private bool death = false;
@@ -27,24 +29,41 @@ public class Player : MonoBehaviour
         initPosion = transform.position;
     }
 
+
+    float fireTimer = 0;
     // Update is called once per frame
     void Update()
     {
         if (death) return;
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+
+        fireTimer += Time.deltaTime;
+
+        //键盘控制小鸟移动
+        Vector2 pos = transform.position;
+        pos.x += Input.GetAxis("Horizontal") * Time.deltaTime * speed;
+        pos.y += Input.GetAxis("Vertical") * Time.deltaTime * speed;
+        transform.position = pos;
+
+        if (Input.GetButton("Fire1"))
         {
-            rigidbodyBird.velocity = Vector2.zero;
-            rigidbodyBird.AddForce(new Vector2(0, force),ForceMode2D.Force);
+            Fire();
         }
-        else if(Input.touchCount>0)
+    }
+
+    /// <summary>
+    /// 小鸟开火
+    /// </summary>
+    public void Fire()
+    {
+        if(fireTimer > 1 / fireRate)
         {
-            Touch myTouch = Input.GetTouch(0);
-            if(Input.touchCount == 1 && myTouch.phase == TouchPhase.Began)
-            {
-                rigidbodyBird.velocity = Vector2.zero;
-                rigidbodyBird.AddForce(new Vector2(0, force), ForceMode2D.Force);
-            }
+            GameObject bullt = Instantiate(bulletTemplate);
+            bullt.transform.position = transform.position;
+
+            fireTimer = 0f;
         }
+
+        
     }
 
     /// <summary>
@@ -86,7 +105,7 @@ public class Player : MonoBehaviour
     /// <param name="collision"></param>
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        Die();
+        //Die();
     }
 
     /// <summary>
@@ -104,7 +123,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Die();
+            //Die();
         }
     }
 
