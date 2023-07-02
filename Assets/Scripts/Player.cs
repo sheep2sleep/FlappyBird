@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (death) return;
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             rigidbodyBird.velocity = Vector2.zero;
             rigidbodyBird.AddForce(new Vector2(0, force),ForceMode2D.Force);

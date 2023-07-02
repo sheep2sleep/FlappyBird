@@ -6,7 +6,7 @@ public class Pipeline : MonoBehaviour
 {
     public float speed;
     public float generateTime;
-    public static int maxCount = 3;
+    public static int maxCount = 6;
     public float minRange;
     public float maxRange;
     private float t;//¼ÆÊ±Æ÷
