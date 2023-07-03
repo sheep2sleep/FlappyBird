@@ -39,7 +39,7 @@ public class Game : MonoBehaviour
         set { score = value; tmpCur.text = score.ToString(); tmpFin.text = score.ToString(); }
     }   
 
-    public PipelineManager pipelineManager;
+    //public PipelineManager pipelineManager;
     public UnitManager unitManager;
 
     public Animator groundAmi;
@@ -67,7 +67,11 @@ public class Game : MonoBehaviour
     void Update()
     {
         //血条插值更新
-        hpBar.value = Mathf.Lerp(hpBar.value, player.HP, 0.1f);
+        if(Status == GAME_STATUS.InGame)
+        {
+            hpBar.value = Mathf.Lerp(hpBar.value, player.HP, 0.1f);
+        }
+        
     }
 
     /// <summary>
@@ -78,7 +82,7 @@ public class Game : MonoBehaviour
         Status = GAME_STATUS.InGame;
         //Debug.LogFormat("Status: {0}", Status);
 
-        pipelineManager.StartRun();
+        //pipelineManager.StartRun();
         unitManager.Begin();
         player.Fly();
         hpBar.value = player.HP;
@@ -102,7 +106,7 @@ public class Game : MonoBehaviour
     private void Player_OnDeath()
     {
         Status = GAME_STATUS.GameOver;
-        pipelineManager.Stop();
+        //pipelineManager.Stop();
         unitManager.Stop();
         UpdateScore();
         groundAmi.speed = 0;
@@ -122,8 +126,9 @@ public class Game : MonoBehaviour
     public void Restart()
     {
         Status = GAME_STATUS.Ready;
-        pipelineManager.Restart();
+        //pipelineManager.Restart();
         player.Restart();
+        hpBar.value = player.HP;
         Score = 0;
         groundAmi.speed = 1;
     }

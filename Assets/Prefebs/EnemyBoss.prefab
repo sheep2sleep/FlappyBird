@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 4372383577504235541}
   - component: {fileID: 300282817028542995}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -281,7 +281,7 @@ MonoBehaviour:
   destroyTime: 8
   bulletTemplate: {fileID: 7720366865578157101, guid: d81b3b26701c2b54991a53ef23543d91, type: 3}
   range: {x: -3, y: 4}
-  enemyType: 0
+  enemyType: 2
 --- !u!1 &4372383578785582440
 GameObject:
   m_ObjectHideFlags: 0

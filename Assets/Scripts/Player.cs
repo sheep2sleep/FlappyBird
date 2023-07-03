@@ -77,6 +77,7 @@ public class Player : MonoBehaviour
     /// </summary>
     public void Idle()
     {
+        HP = 100;
         rigidbodyBird.simulated = false;
         ani.SetTrigger("Idle");
         this.isFlying = false;
@@ -123,12 +124,23 @@ public class Player : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         Element bullet = other.gameObject.GetComponent<Element>();
-        if (bullet == null)
+        Enemy enemy = other.gameObject.GetComponent<Enemy>();
+
+        if (bullet == null && enemy == null)
         {
             return;
         }
         Debug.LogFormat("{0}触发了{1} {2}", gameObject.name, other.gameObject.name, Time.time);
-        if(bullet.side == SIDE.ENEMY)
+
+        //触发到敌人
+        if(enemy != null)
+        {
+            HP = 0;
+            Die();
+        }
+
+        //触发到敌方子弹
+        if(bullet != null && bullet.side == SIDE.ENEMY)
         {
             HP = HP - bullet.power;
             if (HP <= 0)
@@ -145,6 +157,7 @@ public class Player : MonoBehaviour
     {
         transform.position = initPosion;
         death = false;
+        
         Idle();
     }
  

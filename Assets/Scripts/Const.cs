@@ -10,3 +10,13 @@ public enum SIDE
     PLAYER,
     ENEMY,
 }
+
+public enum ENEMY_TYPE
+{
+    NORMAL_ENEMY,
+
+    //摇摆的敌人
+    SWING_ENEMY,
+
+    BOSS,
+}

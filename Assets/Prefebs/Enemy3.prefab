@@ -73,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e09add1a81f35c64583e67944f8aa6de, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: fe0aeb995ac3b074fa2fc33c19c6897c, type: 3}
+  m_Color: {r: 0.55506885, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -157,8 +157,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 02b244b08d4ee61479f4961817a49658, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: a1b545784f9bb8d4ea470507f92ec557, type: 3}
+  m_Color: {r: 0.466542, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 4372383577504235541}
   - component: {fileID: 300282817028542995}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemy3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbodyBird: {fileID: 4372383577504235540}
   ani: {fileID: 4372383577504235543}
-  speed: 3
+  speed: 12
   fireRate: 2
   destroyTime: 8
   bulletTemplate: {fileID: 7720366865578157101, guid: d81b3b26701c2b54991a53ef23543d91, type: 3}
@@ -357,8 +357,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 55812e2866b69404484d37e737eb4193, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 8b0ad3ce753aab147a549696b529e83a, type: 3}
+  m_Color: {r: 0.81144273, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

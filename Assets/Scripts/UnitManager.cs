@@ -5,7 +5,13 @@ using UnityEngine;
 public class UnitManager : MonoBehaviour
 {
     public GameObject enemyTemplate;
-    public float generateTime = 1f;
+    public GameObject enemyTemplate2;
+    public GameObject enemyTemplate3;
+
+    public float generateTime1 = 1f;
+    public float generateTime2 = 1f;
+    public float generateTime3 = 1f;
+
     public float minRange;
     public float maxRange;
 
@@ -29,6 +35,12 @@ public class UnitManager : MonoBehaviour
         this.enemies.Clear();
     }
 
+
+    //敌人生成计时器
+    int timer1 = 0;
+    int timer2 = 0;
+    int timer3 = 0;
+
     /// <summary>
     /// 生成多个敌人的协程
     /// </summary>
@@ -37,11 +49,37 @@ public class UnitManager : MonoBehaviour
     {
         while (true)
         {
-            CreateEnemy(enemyTemplate);
-            yield return new WaitForSeconds(generateTime);
+            //生成敌人1
+            if(timer1 > generateTime1)
+            {
+                CreateEnemy(enemyTemplate);
+                timer1 = 0;
+            }
+            //生成敌人2
+            if(timer2 > generateTime2)
+            {
+                CreateEnemy(enemyTemplate2);
+                timer2 = 0;
+            }
+            //生成敌人3
+            if(timer3 > generateTime3)
+            {
+                CreateEnemy(enemyTemplate3);
+                timer3 = 0;
+            }
+            timer1++;
+            timer2++;
+            timer3++;
+
+            yield return new WaitForSeconds(1f);
         }   
     }
 
+    /// <summary>
+    /// 创建指定类型的敌人
+    /// </summary>
+    /// <param name="templates"></param>
+    /// <returns></returns>
     public Enemy CreateEnemy(GameObject templates)
     {
         if (templates == null)
@@ -50,9 +88,6 @@ public class UnitManager : MonoBehaviour
         GameObject obj = Instantiate(templates, this.transform);
         Enemy p = obj.GetComponent<Enemy>();
         this.enemies.Add(p);
-
-        float y = Random.Range(minRange, maxRange);
-        obj.transform.localPosition = new Vector3(0, y, 0);
 
         return p;
     }
