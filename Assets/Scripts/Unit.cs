@@ -13,6 +13,7 @@ public class Unit : MonoBehaviour
     public float MaxHP = 100f;
     public int life = 3;
     public float speed = 5f;
+    public Transform firePoint;
     public float fireRate = 10f;
 
     protected Vector3 initPosion;

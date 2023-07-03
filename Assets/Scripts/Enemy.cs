@@ -53,7 +53,7 @@ public class Enemy : Unit
         }
         Debug.LogFormat("{0}¥•∑¢¡À{1} {2}", this.gameObject.name, other.gameObject.name, Time.time);
         if (bullet.side == SIDE.PLAYER)
-        {
+        {           
             Die();
         }
     }
