@@ -276,10 +276,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbodyBird: {fileID: 4372383577504235540}
   ani: {fileID: 4372383577504235543}
+  bulletTemplate: {fileID: 7720366865578157101, guid: 887d6feca179fd84fb26bc01ce7c631d, type: 3}
+  side: 1
+  desoryOnDeath: 0
+  HP: 100
+  MaxHP: 100
+  life: 3
   speed: 5
   fireRate: 10
-  bulletTemplate: {fileID: 7720366865578157101, guid: 887d6feca179fd84fb26bc01ce7c631d, type: 3}
-  HP: 100
 --- !u!1 &4372383578785582440
 GameObject:
   m_ObjectHideFlags: 0

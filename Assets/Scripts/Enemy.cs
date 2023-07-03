@@ -11,54 +11,33 @@ public class Enemy : Unit
 
     private float initY = 0;
 
-    //声明一个委托--死亡
-    public event DeathNotify OnDeath;
-
-    //使用事件传递积分消息
-    public UnityAction<int> OnScore;
-
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// 继承的虚函数，执行初始化逻辑
+    /// </summary>
+    public override void OnStart()
     {
-        Fly();
-        initPosion = transform.position;
         Destroy(this.gameObject, destroyTime);
-
         initY = Random.Range(range.x, range.y);
         transform.localPosition = new Vector3(0, initY, 0);
-
+        Fly();
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// 继承的虚函数，执行每帧更新逻辑
+    /// </summary>
+    public override void OnUpdate()
     {
         //为摇摆小鸟添加摇摆
         float y = 0;
-        if(enemyType == ENEMY_TYPE.SWING_ENEMY)
+        if (enemyType == ENEMY_TYPE.SWING_ENEMY)
         {
             y = Mathf.Sin(Time.timeSinceLevelLoad) * 3f;
         }
 
         //敌人自己移动
         transform.position = new Vector3(transform.position.x - Time.deltaTime * speed, initY + y);
+        //敌人自动开火
         Fire();
-    }
-
-    /// <summary>
-    /// 切换状态为死亡
-    /// </summary>
-    public void Die()
-    {
-        if (death == false)
-        {
-            death = true;
-            ani.SetTrigger("Die");
-            if (OnDeath != null)//当委托已绑定时
-            {
-                OnDeath();//触发委托
-            }
-            Destroy(this.gameObject,0.2f);
-        }
     }
 
     /// <summary>

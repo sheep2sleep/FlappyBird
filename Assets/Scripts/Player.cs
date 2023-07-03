@@ -4,50 +4,28 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class Player : Unit
-{    
-    //声明一个委托--死亡
-    public event DeathNotify OnDeath;
+{
+    private float timer = 0;
 
-    //使用事件传递积分消息
-    public UnityAction<int> OnScore;
-
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// 继承的虚函数，执行每帧更新逻辑
+    /// </summary>
+    public override void OnUpdate()
     {
-        Idle();
-        initPosion = transform.position;
-    }
+        if (this.death) return;
 
+        timer += Time.deltaTime;
 
-    
-    // Update is called once per frame
-    void Update()
-    {      
         //键盘控制小鸟移动
-        Vector2 pos = transform.position;
+        Vector2 pos = this.transform.position;
         pos.x += Input.GetAxis("Horizontal") * Time.deltaTime * speed;
         pos.y += Input.GetAxis("Vertical") * Time.deltaTime * speed;
-        transform.position = pos;
+        this.transform.position = pos;
 
         //ctrl和左键控制小鸟开火
         if (Input.GetButton("Fire1"))
         {
-            Fire();
-        }
-    }
-
-    /// <summary>
-    /// 切换状态为死亡
-    /// </summary>
-    public void Die()
-    {
-        if(death == false)
-        {
-            death = true;
-            if (OnDeath != null)//当委托已绑定时
-            {
-                OnDeath();//触发委托
-            }
+            this.Fire();
         }
     }
 
@@ -69,18 +47,12 @@ public class Player : Unit
         //触发到敌人
         if(enemy != null)
         {
-            HP = 0;
             Die();
         }
-
         //触发到敌方子弹
         if(bullet != null && bullet.side == SIDE.ENEMY)
         {
-            HP = HP - bullet.power;
-            if (HP <= 0)
-            {
-                Die();
-            }   
+            Damage(bullet.power);  
         }
     }
 

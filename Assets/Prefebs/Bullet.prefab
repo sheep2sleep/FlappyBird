@@ -98,10 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a39166010ac83284a960bbf362c994df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  direction: 1
-  destroyTime: 3
   side: 1
+  direction: {x: 0, y: 0, z: 0}
+  destroyTime: 3
+  speed: 10
   power: 10
 --- !u!61 &-688975828488604072
 BoxCollider2D:

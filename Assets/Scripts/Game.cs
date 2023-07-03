@@ -60,7 +60,6 @@ public class Game : MonoBehaviour
         Application.targetFrameRate = 60;
         Status = GAME_STATUS.Ready;
         player.OnDeath += Player_OnDeath;//绑定委托函数
-        player.OnScore = Player_OnScore;//绑定事件
     }
 
     // Update is called once per frame

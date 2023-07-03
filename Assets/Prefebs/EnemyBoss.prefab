@@ -197,7 +197,7 @@ Transform:
   m_GameObject: {fileID: 4372383577504235545}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.056, y: 0.6, z: 0.08886407}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalScale: {x: -6, y: 6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4372383578785582441}
@@ -276,12 +276,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbodyBird: {fileID: 4372383577504235540}
   ani: {fileID: 4372383577504235543}
+  bulletTemplate: {fileID: 7720366865578157101, guid: d81b3b26701c2b54991a53ef23543d91, type: 3}
+  HP: 100
+  MaxHP: 100
   speed: 3
   fireRate: 2
-  destroyTime: 8
-  bulletTemplate: {fileID: 7720366865578157101, guid: d81b3b26701c2b54991a53ef23543d91, type: 3}
-  range: {x: -3, y: 4}
   enemyType: 2
+  range: {x: -3, y: 4}
+  destroyTime: 8
 --- !u!1 &4372383578785582440
 GameObject:
   m_ObjectHideFlags: 0

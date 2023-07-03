@@ -7,8 +7,11 @@ public class Unit : MonoBehaviour
     public Rigidbody2D rigidbodyBird;
     public Animator ani;
     public GameObject bulletTemplate;
+    public SIDE side;
+    public bool desoryOnDeath = false;
     public float HP = 100f;
     public float MaxHP = 100f;
+    public int life = 3;
     public float speed = 5f;
     public float fireRate = 10f;
 
@@ -17,13 +20,26 @@ public class Unit : MonoBehaviour
     protected bool isFlying = false;
     protected float fireTimer = 0f;
 
-    //定义无参无返回值的委托--死亡通知
+    //声明无参无返回值的委托类--死亡通知
     public delegate void DeathNotify();
+    //声明一个委托--死亡
+    public event DeathNotify OnDeath;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Idle();
+        initPosion = transform.position;
+        Init();
+
+        OnStart();
+    }
+
+    /// <summary>
+    /// 虚函数OnStart，执行初始化操作
+    /// </summary>
+    public virtual void OnStart()
+    {
     }
 
     // Update is called once per frame
@@ -34,6 +50,15 @@ public class Unit : MonoBehaviour
 
         //开火计时器每帧更新
         fireTimer += Time.deltaTime;
+
+        OnUpdate();
+    }
+
+    /// <summary>
+    /// 虚函数OnUpdate，执行每帧更新工作
+    /// </summary>
+    public virtual void OnUpdate()
+    {
     }
 
     /// <summary>
@@ -56,7 +81,8 @@ public class Unit : MonoBehaviour
         {
             GameObject bullt = Instantiate(bulletTemplate);
             bullt.transform.position = transform.position;
-
+            //设置子弹方向
+            bullt.GetComponent<Element>().direction = side == SIDE.PLAYER ? Vector3.right : Vector3.left;
             fireTimer = 0f;
         }
     }
@@ -79,5 +105,33 @@ public class Unit : MonoBehaviour
         rigidbodyBird.simulated = true;
         ani.SetTrigger("Fly");
         this.isFlying = true;
+    }
+
+    public void Die()
+    {
+        if (death) return;
+        life--;
+        HP = 0;
+        death = true;
+        this.ani.SetTrigger("Die");
+        if (OnDeath != null)//当委托已绑定时
+        {
+            OnDeath();//触发委托
+        }
+        if (desoryOnDeath)
+        {
+            Destroy(this.gameObject, 0.2f);
+        } 
+    }
+
+    public void Damage(float power)
+    {
+        Debug.Log("Unit:Damage power:" + power);
+        HP -= power;
+
+        if (HP <= 0)
+        {
+            this.Die();
+        }         
     }
 }
