@@ -109,21 +109,20 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// 碰撞到管道触发器
+    /// 碰撞到触发器
     /// </summary>
     /// <param name="other"></param>
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.name.Equals("ScoreArea"))
+        Element bullet = other.gameObject.GetComponent<Element>();
+        if (bullet == null)
         {
-            if (OnScore != null)
-            {
-                OnScore(1);
-            }
+            return;
         }
-        else
+        Debug.LogFormat("{0}触发了{1} {2}", this.gameObject.name, other.gameObject.name, Time.time);
+        if(bullet.side == SIDE.ENEMY)
         {
-            //Die();
+            Die();
         }
     }
 

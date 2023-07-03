@@ -278,6 +278,7 @@ MonoBehaviour:
   ani: {fileID: 4372383577504235543}
   speed: 3
   fireRate: 2
+  destroyTime: 8
   bulletTemplate: {fileID: 7720366865578157101, guid: d81b3b26701c2b54991a53ef23543d91, type: 3}
 --- !u!1 &4372383578785582440
 GameObject:

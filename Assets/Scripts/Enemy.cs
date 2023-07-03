@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     public Animator ani;
     public float speed;
     public float fireRate;
+    public float destroyTime = 10f;
     public GameObject bulletTemplate;
 
     private Vector3 initPosion;
@@ -27,6 +28,7 @@ public class Enemy : MonoBehaviour
     {
         Fly();
         initPosion = transform.position;
+        Destroy(this.gameObject, destroyTime);
     }
 
     float fireTimer = 0;
@@ -43,7 +45,7 @@ public class Enemy : MonoBehaviour
     }
 
     /// <summary>
-    /// 小鸟开火
+    /// 敌人开火
     /// </summary>
     public void Fire()
     {
@@ -54,8 +56,6 @@ public class Enemy : MonoBehaviour
 
             fireTimer = 0f;
         }
-
-
     }
 
     /// <summary>
@@ -84,10 +84,12 @@ public class Enemy : MonoBehaviour
         if (death == false)
         {
             death = true;
+            ani.SetTrigger("Die");
             if (OnDeath != null)//当委托已绑定时
             {
                 OnDeath();//触发委托
             }
+            Destroy(this.gameObject,0.2f);
         }
     }
 
@@ -101,21 +103,20 @@ public class Enemy : MonoBehaviour
     }
 
     /// <summary>
-    /// 碰撞到管道触发器
+    /// 碰撞到触发器
     /// </summary>
     /// <param name="other"></param>
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.name.Equals("ScoreArea"))
+        Element bullet = other.gameObject.GetComponent<Element>();
+        if (bullet == null)
         {
-            if (OnScore != null)
-            {
-                OnScore(1);
-            }
+            return;
         }
-        else
+        Debug.LogFormat("{0}触发了{1} {2}", this.gameObject.name, other.gameObject.name, Time.time);
+        if (bullet.side == SIDE.PLAYER)
         {
-            //Die();
+            Die();
         }
     }
 
