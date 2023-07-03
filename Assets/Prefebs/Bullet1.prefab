@@ -102,6 +102,7 @@ MonoBehaviour:
   direction: 1
   destroyTime: 3
   side: 1
+  power: 10
 --- !u!61 &-688975828488604072
 BoxCollider2D:
   m_ObjectHideFlags: 0

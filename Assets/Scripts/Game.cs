@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Game : MonoBehaviour
@@ -28,6 +29,7 @@ public class Game : MonoBehaviour
     public TextMeshProUGUI tmpCur;
     public TextMeshProUGUI tmpFin;
     public TextMeshProUGUI tmpBest;
+    public Slider hpBar;
 
     public int score;//当前分数-字段
     public int Score//当前分数-属性
@@ -64,7 +66,8 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //血条插值更新
+        hpBar.value = Mathf.Lerp(hpBar.value, player.HP, 0.1f);
     }
 
     /// <summary>
@@ -78,6 +81,7 @@ public class Game : MonoBehaviour
         pipelineManager.StartRun();
         unitManager.Begin();
         player.Fly();
+        hpBar.value = player.HP;
 
         groundAmi.speed = 1;
     }

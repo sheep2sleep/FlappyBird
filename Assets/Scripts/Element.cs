@@ -8,6 +8,7 @@ public class Element : MonoBehaviour
     public int direction = 1;
     public float destroyTime = 3f;
     public SIDE side;
+    public float power = 1;
 
     // Start is called before the first frame update
     void Start()

@@ -12,7 +12,12 @@ public class Player : MonoBehaviour
     public GameObject bulletTemplate;
 
     private Vector3 initPosion;
+    private bool isFlying = false;
     private bool death = false;
+
+    public float HP = 100;
+
+
 
     //定义无参无返回值的委托
     public delegate void DeathNotify();
@@ -35,6 +40,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (death) return;
+        if (!isFlying) return;
 
         fireTimer += Time.deltaTime;
 
@@ -73,6 +79,7 @@ public class Player : MonoBehaviour
     {
         rigidbodyBird.simulated = false;
         ani.SetTrigger("Idle");
+        this.isFlying = false;
     }
     
     /// <summary>
@@ -82,6 +89,7 @@ public class Player : MonoBehaviour
     {
         rigidbodyBird.simulated = true;
         ani.SetTrigger("Fly");
+        this.isFlying = true;
     }
 
     /// <summary>
@@ -119,10 +127,14 @@ public class Player : MonoBehaviour
         {
             return;
         }
-        Debug.LogFormat("{0}触发了{1} {2}", this.gameObject.name, other.gameObject.name, Time.time);
+        Debug.LogFormat("{0}触发了{1} {2}", gameObject.name, other.gameObject.name, Time.time);
         if(bullet.side == SIDE.ENEMY)
         {
-            Die();
+            HP = HP - bullet.power;
+            if (HP <= 0)
+            {
+                Die();
+            }   
         }
     }
 
