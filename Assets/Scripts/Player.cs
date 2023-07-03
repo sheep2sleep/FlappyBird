@@ -3,25 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Player : MonoBehaviour
-{
-    public Rigidbody2D rigidbodyBird;
-    public Animator ani;
-    public float speed;
-    public float fireRate;
-    public GameObject bulletTemplate;
-
-    private Vector3 initPosion;
-    private bool isFlying = false;
-    private bool death = false;
-
-    public float HP = 100;
-
-
-
-    //定义无参无返回值的委托
-    public delegate void DeathNotify();
-    //声明一个委托
+public class Player : Unit
+{    
+    //声明一个委托--死亡
     public event DeathNotify OnDeath;
 
     //使用事件传递积分消息
@@ -35,62 +19,21 @@ public class Player : MonoBehaviour
     }
 
 
-    float fireTimer = 0;
+    
     // Update is called once per frame
     void Update()
-    {
-        if (death) return;
-        if (!isFlying) return;
-
-        fireTimer += Time.deltaTime;
-
+    {      
         //键盘控制小鸟移动
         Vector2 pos = transform.position;
         pos.x += Input.GetAxis("Horizontal") * Time.deltaTime * speed;
         pos.y += Input.GetAxis("Vertical") * Time.deltaTime * speed;
         transform.position = pos;
 
+        //ctrl和左键控制小鸟开火
         if (Input.GetButton("Fire1"))
         {
             Fire();
         }
-    }
-
-    /// <summary>
-    /// 小鸟开火
-    /// </summary>
-    public void Fire()
-    {
-        if(fireTimer > 1 / fireRate)
-        {
-            GameObject bullt = Instantiate(bulletTemplate);
-            bullt.transform.position = transform.position;
-
-            fireTimer = 0f;
-        }
-
-        
-    }
-
-    /// <summary>
-    /// 切换状态为待机
-    /// </summary>
-    public void Idle()
-    {
-        HP = 100;
-        rigidbodyBird.simulated = false;
-        ani.SetTrigger("Idle");
-        this.isFlying = false;
-    }
-    
-    /// <summary>
-    /// 切换状态为飞行
-    /// </summary>
-    public void Fly()
-    {
-        rigidbodyBird.simulated = true;
-        ani.SetTrigger("Fly");
-        this.isFlying = true;
     }
 
     /// <summary>
@@ -106,15 +49,6 @@ public class Player : MonoBehaviour
                 OnDeath();//触发委托
             }
         }
-    }
-
-    /// <summary>
-    /// 碰撞到地面碰撞器
-    /// </summary>
-    /// <param name="collision"></param>
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        //Die();
     }
 
     /// <summary>
@@ -150,15 +84,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 重新开始游戏时初始化小鸟状态
-    /// </summary>
-    public void Restart()
-    {
-        transform.position = initPosion;
-        death = false;
-        
-        Idle();
-    }
+    
  
 }

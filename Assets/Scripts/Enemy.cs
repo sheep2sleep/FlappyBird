@@ -3,27 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Unit
 {
-    public Rigidbody2D rigidbodyBird;
-    public Animator ani;
-    public float speed;
-    public float fireRate;
+    public ENEMY_TYPE enemyType;
+    public Vector2 range;
     public float destroyTime = 10f;
-    public GameObject bulletTemplate;
-
-    private Vector3 initPosion;
-    private bool isFlying = false;
-    private bool death = false;
 
     private float initY = 0;
-    public Vector2 range;
 
-    public ENEMY_TYPE enemyType;
-
-    //定义无参无返回值的委托
-    public delegate void DeathNotify();
-    //声明一个委托
+    //声明一个委托--死亡
     public event DeathNotify OnDeath;
 
     //使用事件传递积分消息
@@ -41,58 +29,19 @@ public class Enemy : MonoBehaviour
 
     }
 
-    float fireTimer = 0;
     // Update is called once per frame
     void Update()
     {
-        if (death) return;
-        if (!isFlying) return;
-
-        //敌人自动开火计时器
-        fireTimer += Time.deltaTime;
-
+        //为摇摆小鸟添加摇摆
         float y = 0;
         if(enemyType == ENEMY_TYPE.SWING_ENEMY)
         {
             y = Mathf.Sin(Time.timeSinceLevelLoad) * 3f;
         }
+
         //敌人自己移动
         transform.position = new Vector3(transform.position.x - Time.deltaTime * speed, initY + y);
         Fire();
-    }
-
-    /// <summary>
-    /// 敌人开火
-    /// </summary>
-    public void Fire()
-    {
-        if (fireTimer > 1 / fireRate)
-        {
-            GameObject bullt = Instantiate(bulletTemplate);
-            bullt.transform.position = transform.position;
-
-            fireTimer = 0f;
-        }
-    }
-
-    /// <summary>
-    /// 切换状态为待机
-    /// </summary>
-    public void Idle()
-    {
-        rigidbodyBird.simulated = false;
-        ani.SetTrigger("Idle");
-        this.isFlying = false;
-    }
-
-    /// <summary>
-    /// 切换状态为飞行
-    /// </summary>
-    public void Fly()
-    {
-        rigidbodyBird.simulated = true;
-        ani.SetTrigger("Fly");
-        this.isFlying = true;
     }
 
     /// <summary>
@@ -113,15 +62,6 @@ public class Enemy : MonoBehaviour
     }
 
     /// <summary>
-    /// 碰撞到地面碰撞器
-    /// </summary>
-    /// <param name="collision"></param>
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        //Die();
-    }
-
-    /// <summary>
     /// 碰撞到触发器
     /// </summary>
     /// <param name="other"></param>
@@ -137,15 +77,5 @@ public class Enemy : MonoBehaviour
         {
             Die();
         }
-    }
-
-    /// <summary>
-    /// 重新开始游戏时初始化小鸟状态
-    /// </summary>
-    public void Restart()
-    {
-        transform.position = initPosion;
-        death = false;
-        Idle();
     }
 }

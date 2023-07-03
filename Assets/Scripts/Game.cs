@@ -127,7 +127,7 @@ public class Game : MonoBehaviour
     {
         Status = GAME_STATUS.Ready;
         //pipelineManager.Restart();
-        player.Restart();
+        player.Init();
         hpBar.value = player.HP;
         Score = 0;
         groundAmi.speed = 1;
