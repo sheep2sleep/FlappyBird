@@ -44,13 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb45ab90d4152c40a8dd7ec2286d570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelID: 1001
-  Name: Level1
+  LevelID: 1
+  Name: Slient Bird
   Boss: {fileID: 2757187871623597944, guid: c837129d091d78247885f17f22caef71, type: 3}
   Rules:
   - {fileID: 2283744085584036694, guid: 9b956791a103f0540a79097de1fe0abb, type: 3}
   - {fileID: 2283744085584036694, guid: 4271acffbaf469641ad1c0d1de3aaa1d, type: 3}
   - {fileID: 2283744085584036694, guid: ed930342632bcea40b8d20c5819d841c, type: 3}
   unitManager: {fileID: 0}
-  bossTime: 60
+  bossTime: 20
   currentPlayer: {fileID: 0}
+  result: 0

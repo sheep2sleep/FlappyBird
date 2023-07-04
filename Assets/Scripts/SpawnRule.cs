@@ -16,7 +16,7 @@ public class SpawnRule : MonoBehaviour
 
     private float levelStartTime = 0;
 
-    public int num = 0;
+    private int num = 0;
     private float timer = 0;
 
     public UnitManager unitManager;

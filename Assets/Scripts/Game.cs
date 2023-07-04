@@ -30,6 +30,7 @@ public class Game : MonoBehaviour
     public TextMeshProUGUI tmpCur;
     public TextMeshProUGUI tmpFin;
     public TextMeshProUGUI tmpBest;
+    public TextMeshProUGUI uiLevelName;
     public Slider hpBar;
 
     public int score;//当前分数-字段
@@ -92,10 +93,36 @@ public class Game : MonoBehaviour
 
         levelManager.currentPlayer = this.player;
         levelManager.unitManager = unitManager;
-        levelManager.LoadLevel(currentLevelId);
-        
+        LoadLevel();
 
         groundAmi.speed = 1;
+    }
+
+    /// <summary>
+    /// 加载关卡
+    /// </summary>
+    private void LoadLevel()
+    {
+        levelManager.LoadLevel(currentLevelId);
+        uiLevelName.text = string.Format("LEVEL {0} {1}", levelManager.level.LevelID.ToString(), levelManager.level.Name.ToString());
+        levelManager.level.OnLevelEnd = OnLevelEnd;
+    }
+
+    /// <summary>
+    /// 为UnityEvent绑定执行事件
+    /// </summary>
+    /// <param name="result"></param>
+    private void OnLevelEnd(Level.LEVEL_RESULT result)
+    {
+        if (result == Level.LEVEL_RESULT.SUCCESS)
+        {
+            this.currentLevelId++;
+            this.LoadLevel();
+        }
+        else
+        {
+            this.Status = GAME_STATUS.GameOver;
+        }
     }
 
     /// <summary>
@@ -111,7 +138,7 @@ public class Game : MonoBehaviour
     /// <summary>
     /// 玩家死亡委托执行
     /// </summary>
-    private void Player_OnDeath()
+    private void Player_OnDeath(Unit sender)
     {
         Status = GAME_STATUS.GameOver;
         //pipelineManager.Stop();

@@ -20,3 +20,10 @@ public enum ENEMY_TYPE
 
     BOSS,
 }
+
+public enum GAME_STATUS
+{
+    Ready,
+    InGame,
+    GameOver
+}

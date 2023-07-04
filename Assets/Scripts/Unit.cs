@@ -23,7 +23,7 @@ public class Unit : MonoBehaviour
     protected float fireTimer = 0f;
 
     //声明无参无返回值的委托类--死亡通知
-    public delegate void DeathNotify();
+    public delegate void DeathNotify(Unit sender);
     //声明一个委托--死亡
     public event DeathNotify OnDeath;
 
@@ -121,7 +121,7 @@ public class Unit : MonoBehaviour
         this.ani.SetTrigger("Die");
         if (OnDeath != null)//当委托已绑定时
         {
-            OnDeath();//触发委托
+            OnDeath(this);//触发委托
         }
         if (desoryOnDeath)
         {
