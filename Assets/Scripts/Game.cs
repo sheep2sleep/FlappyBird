@@ -25,6 +25,7 @@ public class Game : MonoBehaviour
     public GameObject panelInGame;
     public GameObject panelGameOver;
     public Player player;
+    public int currentLevelId = 1;
 
     public TextMeshProUGUI tmpCur;
     public TextMeshProUGUI tmpFin;
@@ -41,6 +42,7 @@ public class Game : MonoBehaviour
 
     //public PipelineManager pipelineManager;
     public UnitManager unitManager;
+    public LevelManager levelManager;
 
     public Animator groundAmi;
 
@@ -60,6 +62,8 @@ public class Game : MonoBehaviour
         Application.targetFrameRate = 60;
         Status = GAME_STATUS.Ready;
         player.OnDeath += Player_OnDeath;//°ó¶¨Î¯ÍÐº¯Êý
+
+        
     }
 
     // Update is called once per frame
@@ -85,6 +89,11 @@ public class Game : MonoBehaviour
         unitManager.Begin();
         player.Fly();
         hpBar.value = player.HP;
+
+        levelManager.currentPlayer = this.player;
+        levelManager.unitManager = unitManager;
+        levelManager.LoadLevel(currentLevelId);
+        
 
         groundAmi.speed = 1;
     }

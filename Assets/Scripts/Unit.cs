@@ -15,6 +15,7 @@ public class Unit : MonoBehaviour
     public float speed = 5f;
     public Transform firePoint;
     public float fireRate = 10f;
+    public float Attack;
 
     protected Vector3 initPosion;
     protected bool death = false;
