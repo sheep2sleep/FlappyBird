@@ -12,6 +12,9 @@ public class Boss : Enemy
 
     public Unit target;
 
+    public float fireRate2 = 10f;
+    private float fireTimer2 = 0;
+
     private Missile missile = null;
 
     /// <summary>
@@ -19,17 +22,55 @@ public class Boss : Enemy
     /// </summary>
     public override void OnStart()
     {
+        Fly();
         StartCoroutine(FireMissile());
+        StartCoroutine(Attack());
     }
 
     /// <summary>
-    /// 临时的发射导弹方法
+    /// Boss攻击协程
     /// </summary>
     /// <returns></returns>
-    IEnumerator FireMissile()
+    private IEnumerator Attack()
     {
-        yield return new WaitForSeconds(5f);
+        while (true)
+        {
+            fireTimer2 += Time.deltaTime;
+            //Fire();
+            Fire2();
+
+            //fireTimer3 += Time.deltaTime;
+            //if (fireTimer3 > UltCD)
+            //{
+            //    yield return UltraAttack();
+            //    fireTimer3 = 0;
+            //}
+            yield return null;
+        }
+    }
+
+    /// <summary>
+    /// 定时发射导弹
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator FireMissile()
+    {
+        yield return new WaitForSeconds(3f);
         ani.SetTrigger("Skill");
+    }
+
+    /// <summary>
+    /// 定时发射炮台子弹
+    /// </summary>
+    private void Fire2()
+    {
+        if (fireTimer2 > 1f / fireRate2)
+        {
+            GameObject go = Instantiate(bulletTemplate, firePoint2.position, battery.rotation);
+            Element bullent = go.GetComponent<Element>();
+            bullent.direction = (target.transform.position - firePoint2.position).normalized;
+            fireTimer2 = 0f;
+        }
     }
 
     /// <summary>
@@ -37,7 +78,12 @@ public class Boss : Enemy
     /// </summary>
     public override void OnUpdate()
     {
-
+        //炮台旋转
+        if (target != null)
+        {
+            Vector3 dir = (target.transform.position - battery.position).normalized;
+            battery.transform.rotation = Quaternion.FromToRotation(Vector3.left, dir);
+        }
     }
 
     /// <summary>

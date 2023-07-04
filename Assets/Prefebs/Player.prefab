@@ -283,6 +283,7 @@ MonoBehaviour:
   MaxHP: 100
   life: 3
   speed: 5
+  firePoint: {fileID: 4372383577504235542}
   fireRate: 10
 --- !u!1 &4372383578785582440
 GameObject:

@@ -52,7 +52,7 @@ public class Player : Unit
         //触发到敌方子弹
         if(bullet != null && bullet.side == SIDE.ENEMY)
         {
-            Damage(bullet.power);  
+            Damage(bullet.power); 
         }
     }
 

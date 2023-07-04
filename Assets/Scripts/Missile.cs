@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,11 @@ public class Missile : Element
     public Transform target;
     private bool running = false;
 
+    public GameObject fxExpold;
+
+    /// <summary>
+    /// 导弹每帧更新
+    /// </summary>
     public override void OnUpdate()
     {
         if (!running)
@@ -19,7 +25,7 @@ public class Missile : Element
             Vector3 dir = (target.position - this.transform.position);
             if (dir.magnitude < 0.1)
             {
-                //this.Explod();
+                Explod();
             }
             //从左方向旋转至目标方向
             this.transform.rotation = Quaternion.FromToRotation(Vector3.left, dir);
@@ -34,6 +40,21 @@ public class Missile : Element
     public void Launch()
     {
         running = true;
+    }
+
+    /// <summary>
+    /// 导弹爆炸
+    /// </summary>
+    private void Explod()
+    {
+        Destroy(this.gameObject);
+        Instantiate(fxExpold, this.transform.position, Quaternion.identity);
+
+        if (target != null)
+        {
+            Player p = target.GetComponent<Player>();
+            p.Damage(power);
+        }
     }
 
 }

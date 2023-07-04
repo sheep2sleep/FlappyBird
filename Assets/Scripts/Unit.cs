@@ -108,6 +108,9 @@ public class Unit : MonoBehaviour
         this.isFlying = true;
     }
 
+    /// <summary>
+    /// ½ÇÉ«ËÀÍö
+    /// </summary>
     public void Die()
     {
         if (death) return;
@@ -125,6 +128,10 @@ public class Unit : MonoBehaviour
         } 
     }
 
+    /// <summary>
+    /// ½ÇÉ«ÊÜÉË
+    /// </summary>
+    /// <param name="power"></param>
     public void Damage(float power)
     {
         Debug.Log("Unit:Damage power:" + power);

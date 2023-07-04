@@ -100,10 +100,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   side: 2
   direction: {x: 1, y: 0, z: 0}
-  destroyTime: 20
+  destroyTime: 10
   speed: 4
-  power: 1
-  target: {fileID: 0}
+  power: 30
+  target: {fileID: 4372383577504235542, guid: becaffcbddf45d444b8906dcffbf1110, type: 3}
+  fxExpold: {fileID: 1617360806457292, guid: 7875e007011963046823620f32252e87, type: 3}
 --- !u!1001 &5382017707195500340
 PrefabInstance:
   m_ObjectHideFlags: 0
