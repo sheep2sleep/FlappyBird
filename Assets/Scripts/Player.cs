@@ -55,7 +55,4 @@ public class Player : Unit
             Damage(bullet.power); 
         }
     }
-
-    
- 
 }

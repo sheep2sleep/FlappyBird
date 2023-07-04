@@ -537,9 +537,9 @@ MonoBehaviour:
   HP: 1000
   MaxHP: 1000
   life: 1
-  speed: 5
+  speed: 3
   firePoint: {fileID: 8828064249370987839}
-  fireRate: 10
+  fireRate: 3
   enemyType: 2
   range: {x: -3, y: 4}
   destroyTime: 99999
@@ -549,6 +549,7 @@ MonoBehaviour:
   battery: {fileID: 3972287020487008323}
   target: {fileID: 4372383577504235538, guid: becaffcbddf45d444b8906dcffbf1110, type: 3}
   fireRate2: 5
+  UltCD: 10
 --- !u!1 &4372383578785582440
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,12 +810,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6899779356183356792}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.214, y: -0.013, z: 0}
+  m_LocalPosition: {x: 1.21, y: -0.013000071, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5183344044021956013}
-  m_RootOrder: 1
+  m_Father: {fileID: 3972287020487008323}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7665825673390385294
 GameObject:
@@ -844,7 +845,8 @@ Transform:
   m_LocalPosition: {x: 0.004, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1217812096548710287}
   m_Father: {fileID: 5183344044021956013}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -930,7 +932,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3972287020487008323}
-  - {fileID: 1217812096548710287}
   m_Father: {fileID: 4372383578785582441}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

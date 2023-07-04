@@ -81,7 +81,7 @@ public class Unit : MonoBehaviour
         if (fireTimer > 1 / fireRate)
         {
             GameObject bullt = Instantiate(bulletTemplate);
-            bullt.transform.position = transform.position;
+            bullt.transform.position = firePoint.position;
             //设置子弹方向
             bullt.GetComponent<Element>().direction = side == SIDE.PLAYER ? Vector3.right : Vector3.left;
             fireTimer = 0f;

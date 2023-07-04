@@ -13,6 +13,14 @@ public class Element : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        OnStart();
+    }
+
+    /// <summary>
+    /// Ðéº¯Êý£¬¿ªÊ¼
+    /// </summary>
+    public virtual void OnStart()
+    {
         Destroy(this.gameObject, destroyTime);
     }
 
@@ -35,4 +43,5 @@ public class Element : MonoBehaviour
             Destroy(gameObject, 1f);
         }
     }
+
 }

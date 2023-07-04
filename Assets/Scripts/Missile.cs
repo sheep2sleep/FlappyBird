@@ -11,6 +11,17 @@ public class Missile : Element
 
     public GameObject fxExpold;
 
+    private float existTimer = 0f;
+
+    /// <summary>
+    /// 导弹开始
+    /// </summary>
+    public override void OnStart()
+    {
+        //相比于其他武器，导弹自动销毁得加爆炸动画
+        //所以不使用原start中的Destory，而是另外加计时器
+    }
+
     /// <summary>
     /// 导弹每帧更新
     /// </summary>
@@ -21,6 +32,13 @@ public class Missile : Element
 
         if (target != null)
         {
+            //自动爆炸
+            existTimer += Time.deltaTime;
+            if (existTimer > destroyTime)
+            {
+                Explod();
+                existTimer = 0;
+            }
             //目标位置距离自己位置的方向
             Vector3 dir = (target.position - this.transform.position);
             if (dir.magnitude < 0.1)
@@ -50,7 +68,8 @@ public class Missile : Element
         Destroy(this.gameObject);
         Instantiate(fxExpold, this.transform.position, Quaternion.identity);
 
-        if (target != null)
+        //再此判断是否击中玩家
+        if (target != null && (target.position - this.transform.position).magnitude < 0.1)
         {
             Player p = target.GetComponent<Player>();
             p.Damage(power);
