@@ -8,6 +8,7 @@ public class SpawnRule : MonoBehaviour
     public float InitTime;
     public float Period;
     public int MaxNum;
+    public bool canSpawn = true;
 
     public int HP;
     public int Attack;
@@ -26,6 +27,7 @@ public class SpawnRule : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
+        canSpawn = true;
         this.levelStartTime = Time.realtimeSinceStartup;
         //if (dropRule != null)
             //rule = Instantiate<ItemDropRule>(dropRule);
@@ -39,7 +41,7 @@ public class SpawnRule : MonoBehaviour
         //刷怪数量到了就不刷了
         if (num >= MaxNum) return;
 
-        if (timeSinceLevelStart > InitTime)
+        if (timeSinceLevelStart > InitTime && canSpawn)
         {//开始刷怪
             timer += Time.deltaTime;
 

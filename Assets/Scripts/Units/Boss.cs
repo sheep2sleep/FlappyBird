@@ -37,7 +37,7 @@ public class Boss : Enemy
     {
         this.transform.position = new Vector3(18, 0.6f, 0);
         yield return MoveTo(new Vector3(6.5f, 0.6f, 0));
-        yield return Attack();
+        yield return BossAttack();
     }
 
     /// <summary>
@@ -64,7 +64,7 @@ public class Boss : Enemy
     /// Boss¹¥»÷Ð­³Ì
     /// </summary>
     /// <returns></returns>
-    private IEnumerator Attack()
+    private IEnumerator BossAttack()
     {
         while (true)
         {

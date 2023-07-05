@@ -540,9 +540,11 @@ MonoBehaviour:
   speed: 3
   firePoint: {fileID: 8828064249370987839}
   fireRate: 3
+  Attack: 0
   enemyType: 2
   range: {x: -3, y: 4}
   destroyTime: 99999
+  dieScore: 20
   missileTemplate: {fileID: 5382017706447232495, guid: d6fb50323c3f73043a0240d41d2b9012, type: 3}
   firePoint2: {fileID: 1217812096548710287}
   firePoint3: {fileID: 6065452903524076801}

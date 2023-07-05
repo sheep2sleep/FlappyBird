@@ -26,8 +26,18 @@ public class UnitManager : MonoSingleton<UnitManager>
 
         GameObject obj = Instantiate(templates, this.transform);
         Enemy p = obj.GetComponent<Enemy>();
+        p.OnDeath += Enemy_OnDeath;
         this.enemies.Add(p);
 
         return p;
+    }
+
+    /// <summary>
+    /// µ–»ÀÀ¿Õˆº”∑÷
+    /// </summary>
+    /// <param name="sender"></param>
+    private void Enemy_OnDeath(Unit sender)
+    {
+        Game.Instance.Score += sender.dieScore;
     }
 }

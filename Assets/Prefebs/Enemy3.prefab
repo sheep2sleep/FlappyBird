@@ -317,9 +317,11 @@ MonoBehaviour:
   speed: 12
   firePoint: {fileID: 2700108546809568848}
   fireRate: 2
+  Attack: 0
   enemyType: 0
   range: {x: -3, y: 4}
   destroyTime: 8
+  dieScore: 3
 --- !u!1 &4372383578785582440
 GameObject:
   m_ObjectHideFlags: 0

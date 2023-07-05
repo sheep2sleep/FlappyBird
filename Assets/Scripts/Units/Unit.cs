@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour
     public GameObject bulletTemplate;
     public SIDE side;
     public bool desoryOnDeath = false;
+    public int dieScore = 1;
     public float HP = 100f;
     public float MaxHP = 100f;
     public int life = 3;

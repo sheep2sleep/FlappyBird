@@ -7,40 +7,23 @@ using TMPro;
 
 public class Game : MonoSingleton<Game>
 {
-    public enum GAME_STATUS
-    {
-        Ready,
-        InGame,
-        GameOver
-    }
+    public Player player;
+    public int currentLevelId = 1;
 
     private GAME_STATUS status;//当前游戏状态-字段
     public GAME_STATUS Status//当前游戏状态-属性
     {
         get { return status; }
-        set { status = value; UpdataUI(); }
+        set { status = value; UIManager.Instance.UpdateUI(); }
     }
-
-    public GameObject panelReady;
-    public GameObject panelInGame;
-    public GameObject panelGameOver;
-    public Player player;
-    public int currentLevelId = 1;
-
-    public TextMeshProUGUI tmpCur;
-    public TextMeshProUGUI tmpFin;
-    public TextMeshProUGUI tmpBest;
-    public TextMeshProUGUI uiLife;
-    public TextMeshProUGUI uiLevelName;
-    public Slider hpBar;
 
     public int score;//当前分数-字段
     public int Score//当前分数-属性
     {
         get { return score; }
         //更新分数时自动更新UI
-        set { score = value; tmpCur.text = score.ToString(); tmpFin.text = score.ToString(); }
-    }   
+        set { score = value; UIManager.Instance.UpdateScore(score); }
+    }
 
     public Animator groundAmi;
 
@@ -60,21 +43,13 @@ public class Game : MonoSingleton<Game>
         Application.targetFrameRate = 60;
         Status = GAME_STATUS.Ready;
         player.OnDeath += Player_OnDeath;//绑定委托函数
-
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        //血条插值更新
-        if(Status == GAME_STATUS.InGame)
-        {
-            hpBar.value = Mathf.Lerp(hpBar.value, player.HP, 0.1f);
-        }
-        if(player != null){
-            uiLife.text = player.life.ToString();
-        }
+       
 
     }
 
@@ -83,11 +58,10 @@ public class Game : MonoSingleton<Game>
     /// </summary>
     public void StartGame()
     {
-        Status = GAME_STATUS.InGame;
-        
+        player.Init();
+        Status = GAME_STATUS.InGame;        
         UnitManager.Instance.Clear();
         player.Fly();
-        hpBar.value = player.HP;
 
         LoadLevel();
 
@@ -100,7 +74,7 @@ public class Game : MonoSingleton<Game>
     private void LoadLevel()
     {
         LevelManager.Instance.LoadLevel(currentLevelId);
-        uiLevelName.text = string.Format("LEVEL {0} {1}", LevelManager.Instance.level.LevelID.ToString(), LevelManager.Instance.level.Name.ToString());
+        
         LevelManager.Instance.level.OnLevelEnd = OnLevelEnd;
     }
 
@@ -112,24 +86,22 @@ public class Game : MonoSingleton<Game>
     {
         if (result == Level.LEVEL_RESULT.SUCCESS)
         {
-            this.currentLevelId++;
-            this.LoadLevel();
+            if (currentLevelId < LevelManager.Instance.levels.Count)
+            {
+                this.currentLevelId++;
+                this.LoadLevel();
+            }
+            else
+            {
+                Status = GAME_STATUS.GameOver;
+            }
+            
         }
         else
         {
             this.Status = GAME_STATUS.GameOver;
         }
-    }
-
-    /// <summary>
-    /// 根据当前status更新UI
-    /// </summary>
-    public void UpdataUI()
-    {
-        panelReady.SetActive(Status == GAME_STATUS.Ready);
-        panelInGame.SetActive(Status == GAME_STATUS.InGame);
-        panelGameOver.SetActive(Status == GAME_STATUS.GameOver);
-    }
+    }    
 
     /// <summary>
     /// 玩家死亡委托执行
@@ -147,8 +119,6 @@ public class Game : MonoSingleton<Game>
             player.Rebirth();
         }
         
-        UnitManager.Instance.Clear();
-        UpdateScore();
         groundAmi.speed = 0;
     }
 
@@ -168,20 +138,9 @@ public class Game : MonoSingleton<Game>
         Status = GAME_STATUS.Ready;
         //pipelineManager.Restart();
         player.Init();
-        hpBar.value = player.HP;
         Score = 0;
         groundAmi.speed = 1;
     }
 
-    public void UpdateScore()
-    {
-        int bestScore = 0;
-        if (PlayerPrefs.HasKey("BestScore"))
-        {
-            bestScore = PlayerPrefs.GetInt("BestScore");
-        }
-        bestScore = Math.Max(bestScore, Score);
-        PlayerPrefs.SetInt("BestScore", bestScore);
-        tmpBest.text = bestScore.ToString();
-    }
+
 }

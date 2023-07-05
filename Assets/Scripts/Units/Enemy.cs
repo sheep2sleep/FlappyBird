@@ -8,6 +8,7 @@ public class Enemy : Unit
     public ENEMY_TYPE enemyType;
     public Vector2 range;
     public float destroyTime = 10f;
+    
 
     private float initY = 0;
 
