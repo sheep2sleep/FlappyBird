@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Game : MonoBehaviour
+public class Game : MonoSingleton<Game>
 {
     public enum GAME_STATUS
     {
@@ -40,10 +40,6 @@ public class Game : MonoBehaviour
         //更新分数时自动更新UI
         set { score = value; tmpCur.text = score.ToString(); tmpFin.text = score.ToString(); }
     }   
-
-    //public PipelineManager pipelineManager;
-    public UnitManager unitManager;
-    public LevelManager levelManager;
 
     public Animator groundAmi;
 
@@ -84,15 +80,11 @@ public class Game : MonoBehaviour
     public void StartGame()
     {
         Status = GAME_STATUS.InGame;
-        //Debug.LogFormat("Status: {0}", Status);
-
-        //pipelineManager.StartRun();
-        unitManager.Begin();
+        
+        UnitManager.Instance.Clear();
         player.Fly();
         hpBar.value = player.HP;
 
-        levelManager.currentPlayer = this.player;
-        levelManager.unitManager = unitManager;
         LoadLevel();
 
         groundAmi.speed = 1;
@@ -103,9 +95,9 @@ public class Game : MonoBehaviour
     /// </summary>
     private void LoadLevel()
     {
-        levelManager.LoadLevel(currentLevelId);
-        uiLevelName.text = string.Format("LEVEL {0} {1}", levelManager.level.LevelID.ToString(), levelManager.level.Name.ToString());
-        levelManager.level.OnLevelEnd = OnLevelEnd;
+        LevelManager.Instance.LoadLevel(currentLevelId);
+        uiLevelName.text = string.Format("LEVEL {0} {1}", LevelManager.Instance.level.LevelID.ToString(), LevelManager.Instance.level.Name.ToString());
+        LevelManager.Instance.level.OnLevelEnd = OnLevelEnd;
     }
 
     /// <summary>
@@ -142,7 +134,7 @@ public class Game : MonoBehaviour
     {
         Status = GAME_STATUS.GameOver;
         //pipelineManager.Stop();
-        unitManager.Stop();
+        UnitManager.Instance.Clear ();
         UpdateScore();
         groundAmi.speed = 0;
     }

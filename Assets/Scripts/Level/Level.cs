@@ -12,8 +12,6 @@ public class Level : MonoBehaviour
 
     public List<SpawnRule> Rules = new List<SpawnRule>();
 
-    public UnitManager unitManager;
-
     public UnityAction<LEVEL_RESULT> OnLevelEnd;
 
     private float timeSinceLevelStart = 0;
@@ -25,8 +23,6 @@ public class Level : MonoBehaviour
     private float timer = 0;
 
     private Boss boss = null;
-
-    public Player currentPlayer;
 
     public enum LEVEL_RESULT
     {
@@ -43,7 +39,6 @@ public class Level : MonoBehaviour
         for (int i = 0; i < Rules.Count; i++)
         {
             SpawnRule rule = Instantiate<SpawnRule>(Rules[i]);
-            rule.unitManager = this.unitManager;
         }
         levelStartTime = Time.realtimeSinceStartup;
     }
@@ -61,8 +56,8 @@ public class Level : MonoBehaviour
         {
             if (boss == null && result == LEVEL_RESULT.NONE)
             {
-                boss = (Boss)unitManager.CreateEnemy(this.Boss.gameObject);
-                boss.target = currentPlayer;
+                boss = (Boss)UnitManager.Instance.CreateEnemy(this.Boss.gameObject);
+                boss.target = Game.Instance.player;
                 boss.Fly();//此处才会把刚体激活
                 boss.OnDeath += Boss_OnDeath;
             }

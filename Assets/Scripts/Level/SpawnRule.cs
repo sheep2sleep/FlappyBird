@@ -19,8 +19,6 @@ public class SpawnRule : MonoBehaviour
     private int num = 0;
     private float timer = 0;
 
-    public UnitManager unitManager;
-
     //public ItemDropRule dropRule;
 
     //private ItemDropRule rule;
@@ -48,7 +46,7 @@ public class SpawnRule : MonoBehaviour
             if (timer > Period)
             {
                 timer = 0;
-                Enemy enemy = unitManager.CreateEnemy(this.Monster.gameObject);
+                Enemy enemy = UnitManager.Instance.CreateEnemy(this.Monster.gameObject);
                 //Enemy enemy = UnitManager.Instance.CreateEnemy(this.Monster.gameObject);
                 enemy.MaxHP = this.HP;
                 enemy.Attack = this.Attack;

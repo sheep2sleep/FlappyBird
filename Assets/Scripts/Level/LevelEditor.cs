@@ -31,7 +31,7 @@ public class LevelEditor : Editor
         {
             GUILayout.BeginHorizontal();
             //规则预制件拖动范围
-            EditorGUILayout.ObjectField(level.Rules[i].Monster, typeof(Unit));
+            EditorGUILayout.ObjectField(level.Rules[i].Monster, typeof(Unit),true);
             //移除按钮
             if (GUILayout.Button("Remove"))
             {
