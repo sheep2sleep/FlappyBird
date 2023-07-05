@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2283744085584036697
+--- !u!1 &5557630396333734046
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2283744085584036695}
-  - component: {fileID: 2283744085584036694}
+  - component: {fileID: 5557630396333734044}
+  - component: {fileID: 5557630396333734047}
   m_Layer: 0
-  m_Name: Lv1Rule2
+  m_Name: DropRule2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2283744085584036695
+--- !u!4 &5557630396333734044
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2283744085584036697}
+  m_GameObject: {fileID: 5557630396333734046}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.852797, y: -0.3117815, z: 0.014907208}
+  m_LocalPosition: {x: -3.019982, y: -1.7483233, z: -0.08360717}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2283744085584036694
+--- !u!114 &5557630396333734047
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2283744085584036697}
+  m_GameObject: {fileID: 5557630396333734046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f19f94e2a09a0d04fa6a889173485590, type: 3}
+  m_Script: {fileID: 11500000, guid: f8fda6b7851f21948af385ed39810963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Monster: {fileID: 300282817028542995, guid: 8fe0d3b0f1073f44299e5fde28433b23, type: 3}
-  InitTime: 5
-  Period: 10
-  MaxNum: 5
-  canSpawn: 1
-  HP: 2
-  Attack: 1
-  dropRule: {fileID: 5557630396333734047, guid: 21c35befad17f154280ba8e7f31d7e09, type: 3}
+  item: {fileID: 5964684614154871545, guid: 6848ea32cd3ae844788444b177cb91c3, type: 3}
+  dropRatio: 20

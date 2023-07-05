@@ -20,17 +20,16 @@ public class SpawnRule : MonoBehaviour
     private int num = 0;
     private float timer = 0;
 
-    //public ItemDropRule dropRule;
-
-    //private ItemDropRule rule;
+    public ItemDropRule dropRule;
+    private ItemDropRule rule;
 
     // Use this for initialization
     private void Start()
     {
         canSpawn = true;
         this.levelStartTime = Time.realtimeSinceStartup;
-        //if (dropRule != null)
-            //rule = Instantiate<ItemDropRule>(dropRule);
+        if (dropRule != null)
+            rule = Instantiate<ItemDropRule>(dropRule);
     }
 
     // Update is called once per frame
@@ -49,18 +48,24 @@ public class SpawnRule : MonoBehaviour
             {
                 timer = 0;
                 Enemy enemy = UnitManager.Instance.CreateEnemy(this.Monster.gameObject);
-                //Enemy enemy = UnitManager.Instance.CreateEnemy(this.Monster.gameObject);
                 enemy.MaxHP = this.HP;
                 enemy.Attack = this.Attack;
-                //enemy.OnDeath += Enemy_OnDeath;
+                enemy.OnDeath += Enemy_OnDeath;
                 num++;
             }
         }
     }
 
+    /// <summary>
+    /// 敌人死亡规则
+    /// </summary>
+    /// <param name="sender"></param>
     private void Enemy_OnDeath(Unit sender)
     {
-        //if (rule != null)
-            //rule.Execute(sender.transform.position);
+        //死亡加分
+        Game.Instance.Score += sender.dieScore;
+        //死亡随机掉落
+        if (rule != null)
+            rule.Execute(sender.transform.position);
     }
 }

@@ -40,7 +40,7 @@ public class Element : MonoBehaviour
         //子弹离开屏幕空间后1s销毁
         if (!GameUtil.Instance.InScreen(this.transform.position))
         {
-            Destroy(gameObject, 1f);
+            Destroy(gameObject, 0.1f);
         }
     }
 
