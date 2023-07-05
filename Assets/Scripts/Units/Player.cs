@@ -71,6 +71,13 @@ public class Player : Unit
         if (this.death) return;
         if (this.IsInvincible) return;
 
+        //´¥Åöµ½µÀ¾ß
+        Item item = other.gameObject.GetComponent<Item>();
+        if (item != null)
+        {
+            item.Use(this);
+        }
+
         Element bullet = other.gameObject.GetComponent<Element>();
         Enemy enemy = other.gameObject.GetComponent<Enemy>();
 

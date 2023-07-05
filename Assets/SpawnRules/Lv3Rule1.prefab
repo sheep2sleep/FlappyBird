@@ -48,6 +48,7 @@ MonoBehaviour:
   InitTime: 3
   Period: 1
   MaxNum: 60
+  canSpawn: 1
   HP: 2
   Attack: 1
-  unitManager: {fileID: 0}
+  dropRule: {fileID: 5557630396333734047, guid: 449d5760c1a0e7143b9b274e824820a7, type: 3}

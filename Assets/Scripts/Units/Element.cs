@@ -37,10 +37,10 @@ public class Element : MonoBehaviour
     {
         //子弹移动
         transform.position += direction * speed * Time.deltaTime;
-        //子弹离开屏幕空间后1s销毁
+        //子弹离开屏幕空间后销毁
         if (!GameUtil.Instance.InScreen(this.transform.position))
         {
-            Destroy(gameObject, 1f);
+            Destroy(gameObject);
         }
     }
 

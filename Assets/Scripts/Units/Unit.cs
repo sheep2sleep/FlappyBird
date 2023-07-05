@@ -144,4 +144,15 @@ public class Unit : MonoBehaviour
             this.Die();
         }         
     }
+
+    /// <summary>
+    /// ½ÇÉ«¼ÓÑª
+    /// </summary>
+    /// <param name="hp"></param>
+    public void AddHP(int hp)
+    {
+        HP += hp;
+        if (HP > MaxHP)
+            HP = MaxHP;
+    }
 }
