@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class Player : Unit
 {
+    //无敌时间
+    public float invincibleTime = 3f;
     private float timer = 0;
 
     /// <summary>
@@ -30,11 +32,45 @@ public class Player : Unit
     }
 
     /// <summary>
+    /// 玩家重生
+    /// </summary>
+    public void Rebirth()
+    {
+        //使用协程来等待一段时间执行
+        StartCoroutine(DoRebirth());
+    }
+
+    /// <summary>
+    /// 玩家重生协程
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator DoRebirth()
+    {
+        //等待1秒重生
+        yield return new WaitForSeconds(1f);
+        timer = 0;
+        this.Init();
+        this.Fly();
+    }
+
+    /// <summary>
+    /// 玩家是否无敌
+    /// </summary>
+    public bool IsInvincible
+    {
+        get { return timer < this.invincibleTime; }
+    }
+
+    /// <summary>
     /// 碰撞到触发器
     /// </summary>
     /// <param name="other"></param>
     public void OnTriggerEnter2D(Collider2D other)
     {
+        //状态为死亡时不触发（用于复活时的无敌时间）
+        if (this.death) return;
+        if (this.IsInvincible) return;
+
         Element bullet = other.gameObject.GetComponent<Element>();
         Enemy enemy = other.gameObject.GetComponent<Enemy>();
 

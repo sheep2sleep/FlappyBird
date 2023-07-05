@@ -30,6 +30,7 @@ public class Game : MonoSingleton<Game>
     public TextMeshProUGUI tmpCur;
     public TextMeshProUGUI tmpFin;
     public TextMeshProUGUI tmpBest;
+    public TextMeshProUGUI uiLife;
     public TextMeshProUGUI uiLevelName;
     public Slider hpBar;
 
@@ -71,7 +72,10 @@ public class Game : MonoSingleton<Game>
         {
             hpBar.value = Mathf.Lerp(hpBar.value, player.HP, 0.1f);
         }
-        
+        if(player != null){
+            uiLife.text = player.life.ToString();
+        }
+
     }
 
     /// <summary>
@@ -132,9 +136,18 @@ public class Game : MonoSingleton<Game>
     /// </summary>
     private void Player_OnDeath(Unit sender)
     {
-        Status = GAME_STATUS.GameOver;
-        //pipelineManager.Stop();
-        UnitManager.Instance.Clear ();
+        if(player.life <= 0)
+        {
+            Status = GAME_STATUS.GameOver;
+            UnitManager.Instance.Clear();
+        }
+        else
+        {
+            //玩家生命数量不为0直接复活
+            player.Rebirth();
+        }
+        
+        UnitManager.Instance.Clear();
         UpdateScore();
         groundAmi.speed = 0;
     }
